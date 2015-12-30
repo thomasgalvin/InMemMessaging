@@ -1,6 +1,6 @@
 package galvin.messaging;
 
-public interface Listener
+public interface MessageListener
 {
     public void message( Message message );
 }

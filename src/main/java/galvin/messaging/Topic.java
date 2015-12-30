@@ -10,18 +10,18 @@ public class Topic
 {
     private static final Logger logger = LoggerFactory.getLogger(Topic.class );
     private final String name;
-    private final List<Listener> listeners = new ArrayList();
+    private final List<MessageListener> listeners = new ArrayList();
 
     public Topic( String name ) {
         this.name = name;
     }
     
-    public void add( Listener listener ){
+    public void add( MessageListener listener ){
         remove( listener );
         listeners.add( listener );
     }
     
-    public void remove( Listener listener ){
+    public void remove( MessageListener listener ){
         listeners.remove( listener );
     }
     
@@ -36,11 +36,11 @@ public class Topic
     public void notify( Object source, Object message ){
         Message msg = new Message( source, message, name );
         
-        List<Listener> targets = new ArrayList();
+        List<MessageListener> targets = new ArrayList();
         targets.addAll(  listeners );
         Collections.reverse( targets );
         
-        for( Listener listener : targets ){
+        for( MessageListener listener : targets ){
             try {
                 listener.message( msg );
             }
